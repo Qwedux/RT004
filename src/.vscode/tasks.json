@@ -1,0 +1,55 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/${relativeFileDirname}/${relativeFileDirname}.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "publish",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "publish",
+        "${workspaceFolder}/${relativeFileDirname}/${relativeFileDirname}.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "watch",
+      "command": "dotnet",
+      "type": "process",
+      "args": ["watch", "run", "--project", "${workspaceFolder}/${relativeFileDirname}/${relativeFileDirname}.csproj"],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "New console app",
+      "type": "shell",
+      "command": "Copy-Item ./console_template/ ./${input:consoleAppName}/ -Recurse; cd ${input:consoleAppName}; Rename-Item ./console_template.csproj ./${input:consoleAppName}.csproj",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "consoleAppName",
+      "description": "Enter new console app name.",
+      "default": "new-console-app"
+    }
+  ]
+}
