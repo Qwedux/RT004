@@ -16,6 +16,7 @@ class Config
     }
 }
 
+
 class CommandLineParser
 {
     public static Config ParseConfigFile(string fileName)
