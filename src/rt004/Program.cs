@@ -1,5 +1,5 @@
 ﻿using Util;
-//using System.Numerics;
+using System.Numerics;
 
 namespace rt004;
 
@@ -14,15 +14,9 @@ class Config
     {
         return $"imageWidth: {imageWidth}, imageHeight: {imageHeight}, outputFileName: {outputFileName}";
     }
-}
 
-
-
-class CommandLineParser
-{
-    public static Config ParseConfigFile(string fileName)
+    public Config(string fileName)
     {
-        Config cfg = new Config();
         // open file
         var lines = System.IO.File.ReadAllLines(fileName);
         // for each line split by ":"
@@ -33,27 +27,29 @@ class CommandLineParser
             {
                 var key = parts[0].Trim();
                 var value = parts[1].Trim();
-                if (key == "image_width")
+                if (key == "imageWidth")
                 {
-                    cfg.imageWidth = int.Parse(value);
+                    this.imageWidth = int.Parse(value);
                 }
-                else if (key == "image_height")
+                else if (key == "imageHeight")
                 {
-                    cfg.imageHeight = int.Parse(value);
+                    this.imageHeight = int.Parse(value);
                 }
-                else if (key == "output_path")
+                else if (key == "outputPath")
                 {
-                    cfg.outputFileName = value;
+                    this.outputFileName = value;
                 }
             }
         }
-        if (cfg.outputFileName == null)
+        if (this.outputFileName == null)
         {
             throw new System.Exception("Invalid config file");
         }
-        return cfg;
     }
+}
 
+class CommandLineParser
+{
     public static Config ParseCommandLine(string[] args)
     {
         // there should be 1 argument - the config file name
@@ -61,7 +57,7 @@ class CommandLineParser
         {
             throw new System.Exception("Invalid number of arguments");
         }
-        return ParseConfigFile(args[0]);
+        return new Config(args[0]);
     }
 }
 
@@ -69,59 +65,63 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        // Parameters.
-        // TODO: parse command-line arguments and/or your config file.
-        var cfg = CommandLineParser.ParseCommandLine(args);
+        // write tan of 0.5pi to Console
+        Console.WriteLine(Math.Tan(Math.PI / 4));
 
-        Console.WriteLine(cfg.ToString());
+        // var test = new Vector3(1, 2, 3);
+        // // Parameters.
+        // // TODO: parse command-line arguments and/or your config file.
+        // var cfg = CommandLineParser.ParseCommandLine(args);
 
-        // HDR image.
-        FloatImage fi = new FloatImage(cfg.imageWidth, cfg.imageHeight, 3);
+        // Console.WriteLine(cfg.ToString());
 
-        // TODO: put anything interesting into the image.
-        // TODO: use fi.PutPixel() function, pixel should be a float[3] array [R, G, B]
+        // // HDR image.
+        // FloatImage fi = new FloatImage(cfg.imageWidth, cfg.imageHeight, 3);
 
-        // draw a red circle
-        for (int y = 0; y < cfg.imageHeight; y++)
-        {
-            for (int x = 0; x < cfg.imageWidth; x++)
-            {
-                float[] pixel = new float[3];
-                float dx = x - cfg.imageWidth / 2;
-                float dy = y - cfg.imageHeight / 2;
-                float r = (float)Math.Sqrt(dx * dx + dy * dy);
-                if (r < 100)
-                {
-                    pixel[0] = 2;
-                    pixel[1] = 0;
-                    pixel[2] = 0;
-                    fi.PutPixel(x, y, pixel);
-                }
-            }
-        }
+        // // TODO: put anything interesting into the image.
+        // // TODO: use fi.PutPixel() function, pixel should be a float[3] array [R, G, B]
 
-        // draw a green circle
-        for (int y = 0; y < cfg.imageHeight; y++)
-        {
-            for (int x = 0; x < cfg.imageWidth; x++)
-            {
-                float[] pixel = new float[3];
-                float dx = x - cfg.imageWidth / 2;
-                float dy = y - cfg.imageHeight / 2;
-                float r = (float)Math.Sqrt(dx * dx + dy * dy);
-                if (r < 50)
-                {
-                    pixel[0] = 0;
-                    pixel[1] = 1;
-                    pixel[2] = 1;
-                    fi.PutPixel(x, y, pixel);
-                }
-            }
-        }
+        // // draw a red circle
+        // for (int y = 0; y < cfg.imageHeight; y++)
+        // {
+        //     for (int x = 0; x < cfg.imageWidth; x++)
+        //     {
+        //         float[] pixel = new float[3];
+        //         float dx = x - cfg.imageWidth / 2;
+        //         float dy = y - cfg.imageHeight / 2;
+        //         float r = (float)Math.Sqrt(dx * dx + dy * dy);
+        //         if (r < 100)
+        //         {
+        //             pixel[0] = 2;
+        //             pixel[1] = 0;
+        //             pixel[2] = 0;
+        //             fi.PutPixel(x, y, pixel);
+        //         }
+        //     }
+        // }
+
+        // // draw a green circle
+        // for (int y = 0; y < cfg.imageHeight; y++)
+        // {
+        //     for (int x = 0; x < cfg.imageWidth; x++)
+        //     {
+        //         float[] pixel = new float[3];
+        //         float dx = x - cfg.imageWidth / 2;
+        //         float dy = y - cfg.imageHeight / 2;
+        //         float r = (float)Math.Sqrt(dx * dx + dy * dy);
+        //         if (r < 50)
+        //         {
+        //             pixel[0] = 0;
+        //             pixel[1] = 1;
+        //             pixel[2] = 1;
+        //             fi.PutPixel(x, y, pixel);
+        //         }
+        //     }
+        // }
         
-        //fi.SaveHDR(fileName);   // Doesn't work well yet...
-        fi.SavePFM(cfg.outputFileName);
+        // //fi.SaveHDR(fileName);   // Doesn't work well yet...
+        // fi.SavePFM(cfg.outputFileName);
 
-        Console.WriteLine("HDR image is finished.");
+        // Console.WriteLine("HDR image is finished.");
     }
 }

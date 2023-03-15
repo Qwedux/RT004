@@ -1,3 +1,26 @@
-image_width:600
-image_height:450
-output_path:demo.pfm
+{
+    "Camera": {
+        "center": [
+            0.0,
+            0.0,
+            0.0
+        ],
+        "direction": [
+            0.0,
+            0.0,
+            1.0
+        ],
+        "up": [
+            0.0,
+            1.0,
+            0.0
+        ],
+        "nearPlaneDistance": 0.1,
+        "FOV": 1.0,
+        "imageWidth":600,
+        "imageHeight":450
+    },
+    "GlobalSettings" : {
+        "outputPath":"demo.pfm"
+    }
+}
