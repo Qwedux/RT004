@@ -3,7 +3,7 @@
 
 namespace rt004;
 
-class config
+class Config
 {
     public int imageWidth;
     public int imageHeight;
@@ -18,9 +18,9 @@ class config
 
 class CommandLineParser
 {
-    public static config ParseConfigFile(string fileName)
+    public static Config ParseConfigFile(string fileName)
     {
-        config cfg = new config();
+        Config cfg = new Config();
         // open file
         var lines = System.IO.File.ReadAllLines(fileName);
         // for each line split by ":"
@@ -52,7 +52,7 @@ class CommandLineParser
         return cfg;
     }
 
-    public static config ParseCommandLine(string[] args)
+    public static Config ParseCommandLine(string[] args)
     {
         // there should be 1 argument - the config file name
         if (args.Length != 1)
