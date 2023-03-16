@@ -6,16 +6,16 @@ namespace rt004;
 public class Material{
     public Vector3 color { get; set; }
     public Vector3 specularColor { get; set; }
-    public double specularCoefficient { get; set; }
-    public double specularity { get; set; }
-    public double diffuseCoefficient { get; set; }
+    public float specularCoefficient { get; set; }
+    public float specularity { get; set; }
+    public float diffuseCoefficient { get; set; }
     public float ambientCoefficient { get; set; }
 
     public Material(){
         this.color = new Vector3(1, 1, 1);
         this.specularColor = new Vector3(1, 1, 1);
-        this.specularCoefficient = 0.0;
-        this.specularity = 0.0;
+        this.specularCoefficient = 0.0F;
+        this.specularity = 0.0F;
         this.diffuseCoefficient = 1;
         this.ambientCoefficient = 0.1F;
     }
