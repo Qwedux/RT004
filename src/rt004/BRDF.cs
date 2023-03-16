@@ -9,7 +9,7 @@ public class Material{
     public double specularCoefficient { get; set; }
     public double specularity { get; set; }
     public double diffuseCoefficient { get; set; }
-    public double ambientCoefficient { get; set; }
+    public float ambientCoefficient { get; set; }
 
     public Material(){
         this.color = new Vector3(1, 1, 1);
@@ -17,7 +17,7 @@ public class Material{
         this.specularCoefficient = 0.0;
         this.specularity = 0.0;
         this.diffuseCoefficient = 1;
-        this.ambientCoefficient = 0.1;
+        this.ambientCoefficient = 0.1F;
     }
 
 }
