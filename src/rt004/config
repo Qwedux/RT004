@@ -20,6 +20,40 @@
         "imageWidth":600,
         "imageHeight":450
     },
+    "Solids": [
+        {
+            "type": "Sphere",
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "radius": 1.0,
+            "color": [
+                0.0,
+                0.0,
+                1.0
+            ]
+        },
+        {
+            "type": "Plane",
+            "position": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "normal": [
+                0.0,
+                1.0,
+                0.0
+            ],
+            "color": [
+                0.0,
+                1.0,
+                0.0
+            ]
+        }
+    ],
     "GlobalSettings" : {
         "outputPath":"demo.pfm",
         "epsilonTolerance":0.0001

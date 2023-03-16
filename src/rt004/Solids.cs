@@ -4,8 +4,8 @@ namespace rt004;
 
 public interface ISolid
 {
-    public Vector3 Position { get; set; }
-    public Vector3 Color { get; set; }
+    public Vector3 center { get; set; }
+    public Vector3 color { get; set; }
     public bool Intersect(Vector3 p0, Vector3 p1, out float t);
 
     public Vector3 GetNormal(Vector3 p1, Vector3 p);
@@ -14,15 +14,15 @@ public interface ISolid
 
 public class Sphere : ISolid
 {
-    public Vector3 Position { get; set; }
-    public Vector3 Color { get; set; }
-    public float Radius { get; set; }
+    public Vector3 center { get; set; }
+    public Vector3 color { get; set; }
+    public float radius { get; set; }
 
-    public Sphere(Vector3 position, float radius, Vector3 color)
+    public Sphere(Vector3 center, float radius, Vector3 color)
     {
-        this.Position = position;
-        this.Radius = radius;
-        this.Color = color;
+        this.center = center;
+        this.radius = radius;
+        this.color = color;
     }
 
     /// <summary>
@@ -35,9 +35,9 @@ public class Sphere : ISolid
     public bool Intersect(Vector3 p0, Vector3 p1, out float t)
     {
         p1 = Vector3.Normalize(p1);
-        var p0c = p0 - this.Position;
+        var p0c = p0 - this.center;
         var b = 2 * Vector3.Dot(p1, p0c);
-        var c = Vector3.Dot(p0c, p0c) - this.Radius * this.Radius;
+        var c = Vector3.Dot(p0c, p0c) - this.radius * this.radius;
         var d = b * b - 4 * c;
         if (d < 0)
         {
@@ -79,7 +79,7 @@ public class Sphere : ISolid
     /// <returns>The normal vector at the point p.</returns>
     public Vector3 GetNormal(Vector3 p1, Vector3 p)
     {
-        var cp = this.Position - p;
+        var cp = this.center - p;
         if (Vector3.Dot(cp, p1) > 0){
             // p1 points to the inside of the sphere
             return Vector3.Normalize(cp);
@@ -90,21 +90,21 @@ public class Sphere : ISolid
 }
 
 public class Plane : ISolid{
-    public Vector3 Position { get; set; }
-    public Vector3 Color { get; set; }
-    public Vector3 Normal { get; set; }
+    public Vector3 center { get; set; }
+    public Vector3 color { get; set; }
+    public Vector3 normal { get; set; }
 
     /// <summary>
-    /// Creates a plane with the given position, normal, and side length (SideLength).
+    /// Creates a plane with the given center, normal, and side length (SideLength).
     /// </summary>
-    /// <param name="position">The position of the plane.</param>
+    /// <param name="center">The center of the plane.</param>
     /// <param name="normal">The normal vector of the plane.</param>
     /// <param name="color">The color of the plane.</param>
-    public Plane(Vector3 position, Vector3 normal, Vector3 color)
+    public Plane(Vector3 center, Vector3 normal, Vector3 color)
     {
-        this.Position = position;
-        this.Normal = Vector3.Normalize(normal);
-        this.Color = color;
+        this.center = center;
+        this.normal = Vector3.Normalize(normal);
+        this.color = color;
     }
 
     /// <summary>
@@ -116,7 +116,7 @@ public class Plane : ISolid{
     /// <returns>True if the ray intersects the plane, false otherwise.</returns>
     public bool Intersect(Vector3 p0, Vector3 p1, out float t)
     {
-        var d = Vector3.Dot(this.Normal, p1);
+        var d = Vector3.Dot(this.normal, p1);
         if (d < 1e-8 && d > -1e-8)
         {
             t = 0;
@@ -124,7 +124,7 @@ public class Plane : ISolid{
         }
         else
         {
-            t = Vector3.Dot(this.Position - p0, this.Normal) / d;
+            t = Vector3.Dot(this.center - p0, this.normal) / d;
             return t >= 0;
         }
     }
@@ -137,9 +137,9 @@ public class Plane : ISolid{
     /// <returns>The normal vector at the point p.</returns>
     public Vector3 GetNormal(Vector3 p1, Vector3 p)
     {
-        if (Vector3.Dot(this.Normal, p1) > 0){
-            return this.Normal;
+        if (Vector3.Dot(this.normal, p1) > 0){
+            return this.normal;
         }
-        return -this.Normal;
+        return -this.normal;
     }
 }
