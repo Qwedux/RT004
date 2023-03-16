@@ -126,9 +126,11 @@ class Scene
                     }
                 }
                 // get contribution of each light source
+                bool is_background = true;
                 var color = new float[] { 0, 0, 0 };
                 if (material != null && normal != null)
                 {
+                    is_background = false;
                     foreach (var light in lights)
                     {
                         var lightIntensity = light.IntensityAtPoint(intersectionPoint);
@@ -147,6 +149,10 @@ class Scene
                             color[2] += light.color.Z * lightIntensity * relativeColorCoefficient.Z;
                         }
                     }
+                }
+                if (is_background)
+                {
+                    color = new float[] { 0.1F, 0.2F, 0.3F };
                 }
                 // put pixel in image
                 fi.PutPixel(x, y, color);
