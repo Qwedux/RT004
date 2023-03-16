@@ -61,6 +61,12 @@ class CommandLineParser
     }
 }
 
+class Scene
+{
+    public List<ISolid> solids = new List<ISolid>();
+    public List<ILightSource> lights = new List<ILightSource>();
+}
+
 internal class Program
 {
     static void Main(string[] args)
@@ -118,7 +124,7 @@ internal class Program
         //         }
         //     }
         // }
-        
+
         // //fi.SaveHDR(fileName);   // Doesn't work well yet...
         // fi.SavePFM(cfg.outputFileName);
 
