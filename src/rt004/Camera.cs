@@ -45,7 +45,7 @@ class PerspectiveCamera {
 
     /// returns the ray for the pixel at (x, y), where (-1, -1) is the bottom left corner and (1, 1) is the top right corner
     public bool GetRay(float x, float y, out Vector3 p0, out Vector3 p1) {
-        p0 = nearPlaneCenter + dx * x + dy * y;
+        p0 = nearPlaneCenter - dx * x - dy * y;
         p1 = Vector3.Normalize(p0 - center);
         return true;
     }
