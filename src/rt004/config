@@ -21,6 +21,7 @@
         "imageHeight":450
     },
     "GlobalSettings" : {
-        "outputPath":"demo.pfm"
+        "outputPath":"demo.pfm",
+        "epsilonTolerance":0.0001
     }
 }
