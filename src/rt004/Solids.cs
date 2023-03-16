@@ -5,7 +5,7 @@ namespace rt004;
 public interface ISolid
 {
     public Vector3 center { get; set; }
-    public Vector3 color { get; set; }
+    public Material m { get; set; }
     public bool Intersect(Vector3 p0, Vector3 p1, out float t);
 
     public Vector3 GetNormal(Vector3 p1, Vector3 p);
@@ -15,14 +15,14 @@ public interface ISolid
 public class Sphere : ISolid
 {
     public Vector3 center { get; set; }
-    public Vector3 color { get; set; }
+    public Material m { get; set; }
     public float radius { get; set; }
 
-    public Sphere(Vector3 center, float radius, Vector3 color)
+    public Sphere(Vector3 center, float radius, Material m)
     {
         this.center = center;
         this.radius = radius;
-        this.color = color;
+        this.m = m;
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ public class Sphere : ISolid
 
 public class Plane : ISolid{
     public Vector3 center { get; set; }
-    public Vector3 color { get; set; }
+    public Material m { get; set; }
     public Vector3 normal { get; set; }
 
     /// <summary>
@@ -99,12 +99,12 @@ public class Plane : ISolid{
     /// </summary>
     /// <param name="center">The center of the plane.</param>
     /// <param name="normal">The normal vector of the plane.</param>
-    /// <param name="color">The color of the plane.</param>
-    public Plane(Vector3 center, Vector3 normal, Vector3 color)
+    /// <param name="m">The material of the plane.</param>
+    public Plane(Vector3 center, Vector3 normal, Material m)
     {
         this.center = center;
         this.normal = Vector3.Normalize(normal);
-        this.color = color;
+        this.m = m;
     }
 
     /// <summary>
